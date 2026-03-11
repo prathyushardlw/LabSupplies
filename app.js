@@ -292,10 +292,8 @@
 
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const isTouchDevice = navigator.maxTouchPoints > 1;
 
-    // iPad/iPhone/touch: try share sheet (saves single PDF with correct name)
-    if ((isIOS || isTouchDevice) && navigator.canShare) {
+    if (isIOS && navigator.canShare) {
       const file = new File([blob], filename, { type: 'application/pdf' });
       if (navigator.canShare({ files: [file] })) {
         try {
@@ -307,8 +305,7 @@
       }
     }
 
-    // Touch device fallback: open in new tab (never use anchor download on iPad)
-    if (isIOS || isTouchDevice) {
+    if (isIOS) {
       const reader = new FileReader();
       reader.onload = function () {
         const newTab = window.open('', '_blank');
@@ -325,7 +322,6 @@
       return;
     }
 
-    // Desktop only: anchor download
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
