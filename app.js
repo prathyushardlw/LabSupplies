@@ -99,13 +99,26 @@
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      const newW = rect.width * dpr;
+      const newH = rect.height * dpr;
+
+      // Preserve existing signature during resize/scroll
+      let backup = null;
+      if (canvas.width > 0 && canvas.height > 0) {
+        try { backup = ctx.getImageData(0, 0, canvas.width, canvas.height); } catch (e) {}
+      }
+
+      canvas.width = newW;
+      canvas.height = newH;
       ctx.scale(dpr, dpr);
       ctx.lineWidth = 2;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.strokeStyle = '#1a1a2e';
+
+      if (backup) {
+        try { ctx.putImageData(backup, 0, 0); } catch (e) {}
+      }
     }
 
     function getPos(e) {
