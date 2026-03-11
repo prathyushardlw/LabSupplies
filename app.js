@@ -279,35 +279,13 @@
 
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-    if (isIOS) {
-      // iPad/iPhone: use share sheet only (saves with correct filename)
-      if (navigator.canShare) {
-        const file = new File([blob], filename, { type: 'application/pdf' });
-        if (navigator.canShare({ files: [file] })) {
-          try {
-            await navigator.share({ files: [file], title: filename });
-            return;
-          } catch (e) {
-            if (e.name === 'AbortError') return;
-          }
-        }
-      }
-
-      // Fallback: open PDF in new tab where user can tap share icon to save
-      const reader = new FileReader();
-      reader.onload = function () {
-        const newTab = window.open('', '_blank');
-        if (newTab) {
-          newTab.document.write(
-            '<html><head><title>' + filename + '</title></head>' +
-            '<body style="margin:0"><embed width="100%" height="100%" src="' +
-            reader.result + '" type="application/pdf"></body></html>'
-          );
-          newTab.document.close();
-        }
-      };
-      reader.readAsDataURL(blob);
+    if (isIOS || (isSafari && navigator.maxTouchPoints > 1)) {
+      // iPad/iPhone: open PDF in new tab with Safari's native viewer.
+      // User taps the share icon to "Save to Files" — single file only.
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
       return;
     }
 
