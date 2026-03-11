@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TestGO - Lab Supplies Order Form</title>
+  <link rel="stylesheet" href="styles.css?v=1">
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="app-header">
+      <img src="logo.png" alt="TestGO - DLW | MicroGen Health" class="header-logo">
+      <h1>Lab Supplies Order Form</h1>
+      <p class="subtitle">Fill out the form below and generate your completed PDF</p>
+    </header>
+
+    <form id="labSuppliesForm" autocomplete="off">
+
+      <!-- Clinic Info -->
+      <section class="form-section">
+        <h2 class="section-title">Clinic Information</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="requestingClinic">Requesting Clinic</label>
+            <input type="text" id="requestingClinic" name="requestingClinic">
+          </div>
+          <div class="form-group">
+            <label for="clinicPhone">Phone</label>
+            <input type="tel" id="clinicPhone" name="clinicPhone">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactName">Clinic Contact Name</label>
+            <input type="text" id="contactName" name="contactName">
+          </div>
+          <div class="form-group">
+            <label for="dateRequested">Date Requested</label>
+            <input type="date" id="dateRequested" name="dateRequested">
+          </div>
+        </div>
+      </section>
+
+      <!-- Supply Items — Two Columns -->
+      <div class="section-row">
+
+        <!-- Left Column: ITEM table (matches PDF layout) -->
+        <section class="form-section">
+          <h2 class="section-title">Item</h2>
+          <div class="supply-table">
+            <div class="supply-header">
+              <span class="qty-header">QTY</span>
+              <span class="item-header">Item</span>
+            </div>
+
+            <!-- Section: Swabs & Collection -->
+            <div class="supply-item">
+              <input type="number" id="qty_urineCollectionKits" min="0" class="qty-input" placeholder="-">
+              <label for="qty_urineCollectionKits">Urine Collection Kits (Tox/UTI/Clinical Chemistry)</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_buccalSwabs" min="0" class="qty-input" placeholder="-">
+              <label for="qty_buccalSwabs">Buccal Swabs (PGx)</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_nasopharyngealSwabs" min="0" class="qty-input" placeholder="-">
+              <label for="qty_nasopharyngealSwabs">Nasopharyngeal Swabs (Covid/Flu/RPP)</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_woundCultureSwabs" min="0" class="qty-input" placeholder="-">
+              <label for="qty_woundCultureSwabs">Wound Culture Swabs</label>
+            </div>
+
+            <div class="supply-separator"></div>
+
+            <!-- Section: Needles & General Supplies -->
+            <div class="supply-item">
+              <input type="number" id="qty_butterflyNeedles" min="0" class="qty-input" placeholder="-">
+              <label for="qty_butterflyNeedles">Butterfly Needles</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_straightNeedles" min="0" class="qty-input" placeholder="-">
+              <label for="qty_straightNeedles">Straight Needles</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_hubs" min="0" class="qty-input" placeholder="-">
+              <label for="qty_hubs">Hubs</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_gauze" min="0" class="qty-input" placeholder="-">
+              <label for="qty_gauze">2x2 Gauze</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_alcoholPrepPads" min="0" class="qty-input" placeholder="-">
+              <label for="qty_alcoholPrepPads">Alcohol Prep Pads</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_bandaids" min="0" class="qty-input" placeholder="-">
+              <label for="qty_bandaids">Bandaids</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_coban" min="0" class="qty-input" placeholder="-">
+              <label for="qty_coban">Coban</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_sharpContainers" min="0" class="qty-input" placeholder="-">
+              <label for="qty_sharpContainers">Sharp Containers</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_tourniquets" min="0" class="qty-input" placeholder="-">
+              <label for="qty_tourniquets">Tourniquets</label>
+            </div>
+
+            <div class="supply-separator"></div>
+
+            <!-- Section: Tubes & Test Kits -->
+            <div class="supply-item">
+              <input type="number" id="qty_pipettes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_pipettes">Pipettes</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_transferTubes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_transferTubes">Transfer Tubes</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_lavenderTubes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_lavenderTubes">Lavender Tubes</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_sstTubes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_sstTubes">SST Tubes</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_lightBlueTubes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_lightBlueTubes">Light Blue Tubes</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_lithiumHeparin" min="0" class="qty-input" placeholder="-">
+              <label for="qty_lithiumHeparin">Lithium Heparin (Green)</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_urinalysisTubes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_urinalysisTubes">Urinalysis Tubes</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_fobtsKits" min="0" class="qty-input" placeholder="-">
+              <label for="qty_fobtsKits">FOBTs Kits</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_hPyloriKits" min="0" class="qty-input" placeholder="-">
+              <label for="qty_hPyloriKits">H.Pylori Kits</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_papSmearKits" min="0" class="qty-input" placeholder="-">
+              <label for="qty_papSmearKits">Pap Smear Kits</label>
+            </div>
+
+            <div class="supply-separator"></div>
+
+            <!-- Section: Shipping Supplies -->
+            <div class="supply-item">
+              <input type="number" id="qty_fedexBags" min="0" class="qty-input" placeholder="-">
+              <label for="qty_fedexBags">FedEx Bags &amp; Labels</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_upsBags" min="0" class="qty-input" placeholder="-">
+              <label for="qty_upsBags">UPS Bags &amp; Labels</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_kangarooMailers" min="0" class="qty-input" placeholder="-">
+              <label for="qty_kangarooMailers">Kangaroo Mailers</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_icePacks" min="0" class="qty-input" placeholder="-">
+              <label for="qty_icePacks">Ice Packs</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_labelRolls" min="0" class="qty-input" placeholder="-">
+              <label for="qty_labelRolls">Label Rolls</label>
+            </div>
+
+            <div class="supply-separator"></div>
+
+            <!-- Section: Gloves & PPE -->
+            <div class="supply-item">
+              <input type="number" id="qty_glovesS" min="0" class="qty-input" placeholder="-">
+              <label for="qty_glovesS">Gloves S</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_glovesM" min="0" class="qty-input" placeholder="-">
+              <label for="qty_glovesM">Gloves M</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_glovesL" min="0" class="qty-input" placeholder="-">
+              <label for="qty_glovesL">Gloves L</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_glovesXL" min="0" class="qty-input" placeholder="-">
+              <label for="qty_glovesXL">Gloves XL</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_masks" min="0" class="qty-input" placeholder="-">
+              <label for="qty_masks">Masks</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_jackets" min="0" class="qty-input" placeholder="-">
+              <label for="qty_jackets">Jackets</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Column: OTHER ITEMS table (matches PDF layout) -->
+        <section class="form-section">
+          <h2 class="section-title">Other Items</h2>
+          <div class="supply-table">
+            <div class="supply-header">
+              <span class="qty-header">QTY</span>
+              <span class="item-header">Item</span>
+            </div>
+
+            <!-- Section: Requisitions -->
+            <div class="supply-item">
+              <input type="number" id="qty_allInOneReq" min="0" class="qty-input" placeholder="-">
+              <label for="qty_allInOneReq">All in One Requisition (All test panels)</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_toxUtiReq" min="0" class="qty-input" placeholder="-">
+              <label for="qty_toxUtiReq">Tox/UTI Requisitions</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_pgxReq" min="0" class="qty-input" placeholder="-">
+              <label for="qty_pgxReq">PGx Requisitions</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_bloodReq" min="0" class="qty-input" placeholder="-">
+              <label for="qty_bloodReq">Blood Requisitions</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_covidFluRppReq" min="0" class="qty-input" placeholder="-">
+              <label for="qty_covidFluRppReq">Covid/Flu/RPP Requisitions</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_woundReq" min="0" class="qty-input" placeholder="-">
+              <label for="qty_woundReq">Wound Requisitions</label>
+            </div>
+
+            <div class="supply-separator"></div>
+
+            <!-- Section: Specimen Containers & Tubes -->
+            <div class="supply-item">
+              <input type="number" id="qty_urineCups" min="0" class="qty-input" placeholder="-">
+              <label for="qty_urineCups">Urine Cups</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_urineHats" min="0" class="qty-input" placeholder="-">
+              <label for="qty_urineHats">Urine Hats</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_sampleBags" min="0" class="qty-input" placeholder="-">
+              <label for="qty_sampleBags">Sample Bags</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_royalBlueTubes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_royalBlueTubes">Royal Blue Tubes</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_metalFreeTubes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_metalFreeTubes">Metal Free Tubes</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_redTopTubes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_redTopTubes">Red Top Tubes</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_amberTransferTubes" min="0" class="qty-input" placeholder="-">
+              <label for="qty_amberTransferTubes">Amber Transfer Tubes</label>
+            </div>
+
+            <div class="supply-separator"></div>
+
+            <!-- Section: Equipment -->
+            <div class="supply-item">
+              <input type="number" id="qty_centrifuge" min="0" class="qty-input" placeholder="-">
+              <label for="qty_centrifuge">Centrifuge</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_idCard" min="0" class="qty-input" placeholder="-">
+              <label for="qty_idCard">ID Card</label>
+            </div>
+
+            <div class="supply-separator"></div>
+
+            <!-- Section: Blood Culture -->
+            <div class="supply-item">
+              <input type="number" id="qty_bloodCultureKits" min="0" class="qty-input" placeholder="-">
+              <label for="qty_bloodCultureKits">Blood Culture Kits</label>
+            </div>
+
+            <div class="supply-separator"></div>
+
+            <!-- Section: Tube Tops -->
+            <div class="supply-item">
+              <input type="number" id="qty_whiteTop" min="0" class="qty-input" placeholder="-">
+              <label for="qty_whiteTop">White Top</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_orangeTop" min="0" class="qty-input" placeholder="-">
+              <label for="qty_orangeTop">Orange Top</label>
+            </div>
+            <div class="supply-item">
+              <input type="number" id="qty_pinkGreyTop" min="0" class="qty-input" placeholder="-">
+              <label for="qty_pinkGreyTop">Pink and Grey Top</label>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Signature Section -->
+      <section class="form-section">
+        <h2 class="section-title">Authorization</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="signerName">Name</label>
+            <input type="text" id="signerName" name="signerName">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label>Signature</label>
+            <div class="signature-pad-wrapper">
+              <canvas class="signature-pad" id="sigPad1" width="500" height="120"></canvas>
+              <button type="button" class="btn-clear-sig" data-pad="sigPad1">Clear</button>
+            </div>
+          </div>
+        </div>
+        <p class="form-note">
+          *Please note that other supplies will be provided based upon availability and may require additional approval.
+        </p>
+      </section>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button type="button" id="btnGeneratePDF" class="btn btn-primary" disabled>
+          Generate Filled PDF
+        </button>
+        <button type="reset" class="btn btn-secondary">Clear Form</button>
+      </div>
+
+    </form>
+  </div>
+
+  <script src="app.js?v=1"></script>
+</body>
+</html>
