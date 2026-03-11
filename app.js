@@ -281,7 +281,7 @@
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
     if (isIOS) {
-      // iPad/iPhone: try share sheet first (saves with correct filename)
+      // iPad/iPhone: use share sheet only (saves with correct filename)
       if (navigator.canShare) {
         const file = new File([blob], filename, { type: 'application/pdf' });
         if (navigator.canShare({ files: [file] })) {
@@ -294,34 +294,20 @@
         }
       }
 
-      // iPad fallback: anchor download (Safari 13+)
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-
-      // Also open in new tab so user can "Save to Files" from there
-      setTimeout(() => {
-        const reader = new FileReader();
-        reader.onload = function () {
-          const newTab = window.open('', '_blank');
-          if (newTab) {
-            newTab.document.title = filename;
-            newTab.document.write(
-              '<html><head><title>' + filename + '</title></head>' +
-              '<body style="margin:0"><embed width="100%" height="100%" src="' +
-              reader.result + '" type="application/pdf"></body></html>'
-            );
-            newTab.document.close();
-          }
-        };
-        reader.readAsDataURL(blob);
-      }, 300);
-
-      setTimeout(() => URL.revokeObjectURL(url), 5000);
+      // Fallback: open PDF in new tab where user can tap share icon to save
+      const reader = new FileReader();
+      reader.onload = function () {
+        const newTab = window.open('', '_blank');
+        if (newTab) {
+          newTab.document.write(
+            '<html><head><title>' + filename + '</title></head>' +
+            '<body style="margin:0"><embed width="100%" height="100%" src="' +
+            reader.result + '" type="application/pdf"></body></html>'
+          );
+          newTab.document.close();
+        }
+      };
+      reader.readAsDataURL(blob);
       return;
     }
 
